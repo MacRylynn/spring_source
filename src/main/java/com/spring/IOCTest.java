@@ -2,6 +2,7 @@ package com.spring;
 
 import com.spring.config.MainConfig;
 import com.spring.config.MainConfig2;
+import com.spring.entity.Blue;
 import com.spring.entity.Person;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
@@ -56,6 +57,18 @@ public class IOCTest {
         }
         Map<String, Person> map = applicationContext.getBeansOfType(Person.class);
         System.out.println(map);
+    }
+
+    //测试@Import组件
+    @Test
+    public void test4() {
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(MainConfig2.class);
+        String names[] = applicationContext.getBeanDefinitionNames();
+        for (String name : names) {
+            System.out.println(name);
+        }
+        Blue bean = applicationContext.getBean(Blue.class);
+        System.out.println(bean);
     }
 
 }
