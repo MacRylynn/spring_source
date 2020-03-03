@@ -2,6 +2,7 @@ package com.spring.config;
 
 
 import com.spring.condition.LinuxCondition;
+import com.spring.condition.MyImportBeanRegistrar;
 import com.spring.condition.MyImportSelector;
 import com.spring.condition.WindowsCondition;
 import com.spring.entity.Color;
@@ -11,7 +12,8 @@ import org.springframework.context.annotation.*;
 //当这个注解在类上时，类中的全组件需要满足此条件才能注册
 @Conditional({WindowsCondition.class})
 @Configuration
-@Import({Color.class, MyImportSelector.class})//导入Color类，并且导入满足MyImportSelector定义的组件
+//导入Color类，导入满足MyImportSelector定义的组件，导入MyImportBeanRegistrar中手动注册的类
+@Import({Color.class, MyImportSelector.class, MyImportBeanRegistrar.class})
 public class MainConfig2 {
     /**
      * @Scope 调整作用域
@@ -64,6 +66,7 @@ public class MainConfig2 {
      * 2. @Bean[导入的第三方包里面的组件] 比如在xml文件或者配置文件中声明这个bean
      * 3. @Import[快速给容器中导入一个组件] 以color类为例演示
      *        1) @Import({Color.class}) ：容器就会自动注册这个组件，id默认是组件的全类名
-     *        2) ImportSelector：返回需要导入的全类名数组，以MyImportSelector类为例
+     *        2) ImportSelector：返回需要导入的全类名数组，以MyImportSelector类为例（SpringBoot中用的非常多）
+     *        3) ImportBeanDefinitionRegistrar：手动注册Bean到容器中，以MyImportBeanRegistrar类为例
      */
 }
